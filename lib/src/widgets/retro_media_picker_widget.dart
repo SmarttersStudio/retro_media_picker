@@ -37,9 +37,8 @@ class PickerWidgetState extends State<RetroMediaPickerWidget> {
     super.initState();
     print('init ${DateTime.now()} $_isLoading');
     RetroMediaMethodHandler.getAlbums(
-      withImages: widget.withImages,
-      withVideos: widget.withVideos
-    ).then((value) {
+            withImages: widget.withImages, withVideos: widget.withVideos)
+        .then((value) {
       setState(() {
         _albums = value;
         _isLoading = false;
