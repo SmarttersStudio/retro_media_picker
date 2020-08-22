@@ -1,33 +1,13 @@
+part of retro_media_picker;
+
 class MediaFile {
-  /// Unique identifier for the file
   String id;
-
-  /// Date added in seconds (unix timestamp)
   int dateAdded;
-
-  /// Original file path
   String path;
-
-  /// Thumbnails from android (NOT iOS) need to have their orientation fixed
-  /// based on the returned [orientation]
-  /// usage: RotatedBox(
-  ///                  quarterTurns: Platform.isIOS
-  ///                      ? 0
-  ///                      : orientationToQuarterTurns(mediaFile.orientation),
-  ///                  child: Image.file(
-  ///                    File(mediaFile.thumbnailPath),
-  ///                    fit: BoxFit.cover,
-  ///                    )
-  /// Note: If thumbnail returned is null you will have to call [MediaPickerBuilder.getThumbnail]
   String thumbnailPath;
-
-  /// Orientation in degrees (i.e. 0, 90, 180, 270)
   int orientation;
-
-  /// Video duration in milliseconds
   int duration;
-
-  /// Supported on Android only
+  int index;
   String mimeType;
   MediaType type;
 
@@ -47,7 +27,8 @@ class MediaFile {
         orientation = json['orientation'],
         duration = json['duration'],
         mimeType = json['mimeType'],
-        type = MediaType.values[json['type']];
+        type = MediaType.values[json['type']],
+        index = json['index'];
 
   @override
   bool operator ==(Object other) =>
@@ -59,8 +40,9 @@ class MediaFile {
 
   @override
   String toString() {
-    return 'MediaFile{id: $id, dateAdded: $dateAdded, path: $path, type: $type}';
+    return 'MediaFile{id: $id, dateAdded: $dateAdded, path: $path, thumbnailPath: $thumbnailPath, orientation: $orientation, duration: $duration, mimeType: $mimeType, type: $type}';
   }
 }
 
 enum MediaType { IMAGE, VIDEO }
+enum RetroMediaPickerType { bottomSheet, fullscreen }

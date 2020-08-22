@@ -1,11 +1,25 @@
+///
+/// Created by Sunil Kumar on 22-08-2020 12:20 PM.
+///
+library retro_media_picker;
+
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:retro_media_picker/src/retro_permission_handler.dart';
-import 'package:retro_media_picker/src/widgets/retro_media_picker_widget.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
-import 'src/data/media_file.dart';
-
-enum RetroMediaPickerType { bottomSheet, fullscreen }
+part './src/retro_permission_handler.dart';
+part 'src/widgets/thumbnail_widget.dart';
+part './src/retro_media_methods_handler.dart';
+part './src/data/media_file.dart';
+part './src/data/album.dart';
+part './src/data/multi_selector_model.dart';
+part './src/widgets/gallery_widget.dart';
+part './src/widgets/gallery_widget_item.dart';
+part './src/widgets/retro_media_picker_widget.dart';
 
 class RetroMediaPicker {
   static Future<MediaFile> pickImage(

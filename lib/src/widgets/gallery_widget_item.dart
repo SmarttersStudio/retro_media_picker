@@ -1,11 +1,5 @@
-import 'dart:io';
+part of retro_media_picker;
 
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:retro_media_picker/src/data/media_file.dart';
-import 'package:retro_media_picker/src/data/multi_selector_model.dart';
-import 'package:retro_media_picker/src/retro_media_methos_handler.dart';
-import 'package:retro_media_picker/src/widgets/retro_media_picker_widget.dart';
 
 class GalleryWidgetItem extends StatefulWidget {
   final MediaFile mediaFile;
@@ -18,20 +12,6 @@ class GalleryWidgetItem extends StatefulWidget {
 }
 
 class GalleryWidgetItemState extends State<GalleryWidgetItem> {
-  Widget blueCheckCircle = Stack(
-    children: [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          width: 24,
-          height: 24,
-          color: Colors.white.withOpacity(0.9),
-        ),
-      ),
-      Icon(Icons.check_circle, color: Colors.blue)
-    ],
-  );
-
   @override
   Widget build(BuildContext context) {
     return Consumer<MultiSelectorModel>(
@@ -49,7 +29,7 @@ class GalleryWidgetItemState extends State<GalleryWidgetItem> {
                   ? Positioned(
                       right: 10,
                       bottom: 10,
-                      child: blueCheckCircle,
+                      child: CircleCheckWidget(widget.mediaFile.index),
                     )
                   : const SizedBox(),
             ],
@@ -60,47 +40,28 @@ class GalleryWidgetItemState extends State<GalleryWidgetItem> {
         alignment: Alignment.center,
         fit: StackFit.expand,
         children: [
-          widget.mediaFile.thumbnailPath != null
-              ? RotatedBox(
-                  quarterTurns: Platform.isIOS
-                      ? 0
-                      : RetroMediaMethodHandler.orientationToQuarterTurns(
-                          widget.mediaFile.orientation),
-                  child: Image.file(
-                    File(widget.mediaFile.thumbnailPath),
-                    fit: BoxFit.cover,
-                  ),
-                )
-              : FutureBuilder(
-                  future: RetroMediaMethodHandler.getThumbnail(
-                    fileId: widget.mediaFile.id,
-                    type: widget.mediaFile.type,
-                  ),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<String> snapshot) {
-                    if (snapshot.hasData) {
-                      var thumbnail = snapshot.data;
-                      widget.mediaFile.thumbnailPath = thumbnail;
-                      return RotatedBox(
-                        quarterTurns: Platform.isIOS
-                            ? 0 // iOS thumbnails have correct orientation
-                            : RetroMediaMethodHandler.orientationToQuarterTurns(
-                                widget.mediaFile.orientation),
-                        child: Image.file(
-                          File(thumbnail),
-                          fit: BoxFit.cover,
-                        ),
-                      );
-                    } else if (snapshot.hasError) {
-                      return Icon(Icons.error, color: Colors.red, size: 24);
-                    } else {
-                      return ImageLoader();
-                    }
-                  }),
+          ThumbnailWidget(widget.mediaFile),
           widget.mediaFile.type == MediaType.VIDEO
               ? Icon(Icons.play_circle_filled, color: Colors.white, size: 24)
               : const SizedBox()
         ],
+      ),
+    );
+  }
+}
+
+class CircleCheckWidget extends StatelessWidget {
+  final int index;
+  const CircleCheckWidget(this.index);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Theme.of(context).primaryColor,
+      shape: StadiumBorder(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+        child: Text('$index', style: TextStyle(color: Colors.white)),
       ),
     );
   }
