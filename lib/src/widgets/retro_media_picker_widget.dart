@@ -50,6 +50,12 @@ class PickerWidgetState extends State<RetroMediaPickerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    String _caption = '';
+    if (widget.withImages && widget.withVideos)
+      _caption = 'You can select both videos and photos.';
+    else if (widget.withImages)
+      _caption = 'You can select only photos.';
+    else if (widget.withVideos) _caption = 'You can select only videos.';
     if (_isLoading)
       return Center(child: CircularProgressIndicator());
     else if (_albums.isEmpty) {
@@ -143,7 +149,7 @@ class PickerWidgetState extends State<RetroMediaPickerWidget> {
                           SizedBox(width: 16),
                           Expanded(
                               child: Text(
-                            'You can select both videos and photos.',
+                            _caption,
                             style: Theme.of(context).textTheme.caption,
                           )),
                           Padding(
