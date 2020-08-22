@@ -1,13 +1,7 @@
 ///
 /// Created by Sunil Kumar on 20-08-2020 10:34 AM.
 ///
-
-import 'dart:async';
-import 'dart:convert';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'data/album.dart';
-import 'data/media_file.dart';
+part of retro_media_picker;
 
 class RetroMediaMethodHandler {
   static const MethodChannel _channel =

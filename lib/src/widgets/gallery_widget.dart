@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:retro_media_picker/src/data/media_file.dart';
-import 'gallery_widget_item.dart';
+part of retro_media_picker;
 
 class GalleryWidget extends StatelessWidget {
   final List<MediaFile> mediaFiles;

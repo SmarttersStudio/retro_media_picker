@@ -1,8 +1,7 @@
 ///
 /// Created by Sunil Kumar on 20-08-2020 10:39 AM.
 ///
-import 'package:flutter/material.dart';
-import 'media_file.dart';
+part of retro_media_picker;
 
 class MultiSelectorModel extends ChangeNotifier {
   Set<MediaFile> _selectedItems = Set();
@@ -12,9 +11,10 @@ class MultiSelectorModel extends ChangeNotifier {
       _selectedItems.remove(file);
     } else {
       if (!isMultiple) _selectedItems.clear();
-
       _selectedItems.add(file);
     }
+    _selectedItems.forEach(
+        (element) => element.index = _selectedItems.toList().indexOf(element));
     notifyListeners();
   }
 

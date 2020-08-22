@@ -1,4 +1,4 @@
-import 'media_file.dart';
+part of retro_media_picker;
 
 class Album {
   /// Unique identifier for the album
@@ -22,4 +22,9 @@ class Album {
 
   @override
   int get hashCode => id.hashCode;
+
+  @override
+  String toString() {
+    return 'Album{id: $id, name: $name, files: $files}';
+  }
 }
