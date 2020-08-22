@@ -122,8 +122,10 @@ class PickerWidgetState extends State<RetroMediaPickerWidget> {
               Consumer<MultiSelectorModel>(builder: (context, selector, child) {
                 return AnimatedContainer(
                   color: Colors.white,
-                  duration: const Duration(milliseconds: 200),
-                  height: _selector.selectedItems.isNotEmpty ? 154 : 54,
+                  padding: const EdgeInsets.all(8),
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.linear,
+                  height: _selector.selectedItems.isNotEmpty ? 154 : 64,
                   child: Column(
                     children: [
                       Expanded(
@@ -145,8 +147,7 @@ class PickerWidgetState extends State<RetroMediaPickerWidget> {
                             style: Theme.of(context).textTheme.caption,
                           )),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 2),
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: Consumer<MultiSelectorModel>(
                               builder: (context, selector, child) {
                                 return RaisedButton(

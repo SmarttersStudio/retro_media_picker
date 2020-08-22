@@ -11,9 +11,10 @@ class MultiSelectorModel extends ChangeNotifier {
       _selectedItems.remove(file);
     } else {
       if (!isMultiple) _selectedItems.clear();
-      file.index = _selectedItems.length;
       _selectedItems.add(file);
     }
+    _selectedItems.forEach(
+        (element) => element.index = _selectedItems.toList().indexOf(element));
     notifyListeners();
   }
 

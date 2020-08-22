@@ -1,6 +1,5 @@
 part of retro_media_picker;
 
-
 class GalleryWidgetItem extends StatefulWidget {
   final MediaFile mediaFile;
   final bool allowMultiple;
@@ -29,7 +28,9 @@ class GalleryWidgetItemState extends State<GalleryWidgetItem> {
                   ? Positioned(
                       right: 10,
                       bottom: 10,
-                      child: CircleCheckWidget(widget.mediaFile.index),
+                      child: CircleCheckWidget(selector.selectedItems
+                          .toList()
+                          .indexOf(widget.mediaFile)),
                     )
                   : const SizedBox(),
             ],
@@ -60,7 +61,7 @@ class CircleCheckWidget extends StatelessWidget {
       color: Theme.of(context).primaryColor,
       shape: StadiumBorder(),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
         child: Text('$index', style: TextStyle(color: Colors.white)),
       ),
     );
