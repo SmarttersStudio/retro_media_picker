@@ -15,16 +15,16 @@ class ThumbnailWidget extends StatelessWidget {
             quarterTurns: Platform.isIOS
                 ? 0
                 : RetroMediaMethodHandler.orientationToQuarterTurns(
-                    mediaFile.orientation),
+                    mediaFile.orientation!),
             child: Image.file(
-              File(mediaFile.thumbnailPath),
+              File(mediaFile.thumbnailPath!),
               fit: BoxFit.cover,
             ),
           )
         : FutureBuilder(
             future: RetroMediaMethodHandler.getThumbnail(
-              fileId: mediaFile.id,
-              type: mediaFile.type,
+              fileId: mediaFile.id!,
+              type: mediaFile.type!,
             ),
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (snapshot.hasData) {
@@ -34,9 +34,9 @@ class ThumbnailWidget extends StatelessWidget {
                   quarterTurns: Platform.isIOS
                       ? 0 // iOS thumbnails have correct orientation
                       : RetroMediaMethodHandler.orientationToQuarterTurns(
-                          mediaFile.orientation),
+                          mediaFile.orientation!),
                   child: Image.file(
-                    File(thumbnail),
+                    File(thumbnail!),
                     fit: BoxFit.cover,
                   ),
                 );

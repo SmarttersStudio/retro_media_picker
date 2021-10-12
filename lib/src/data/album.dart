@@ -2,11 +2,11 @@ part of retro_media_picker;
 
 class Album {
   /// Unique identifier for the album
-  final String id;
-  final String name;
+  final String? id;
+  final String? name;
   final List<MediaFile> files;
 
-  Album({this.id, this.name, this.files});
+  Album({this.id, this.name, this.files = const []});
 
   Album.fromJson(Map<String, dynamic> json)
       : id = json['id'],

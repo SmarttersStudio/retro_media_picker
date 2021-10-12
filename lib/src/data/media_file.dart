@@ -1,15 +1,15 @@
 part of retro_media_picker;
 
 class MediaFile {
-  String id;
-  int dateAdded;
-  String path;
-  String thumbnailPath;
-  int orientation;
-  int duration;
-  int index;
-  String mimeType;
-  MediaType type;
+  String? id;
+  int? dateAdded;
+  String? path;
+  String? thumbnailPath;
+  int? orientation;
+  int? duration;
+  int? index;
+  String? mimeType;
+  MediaType? type;
 
   MediaFile(
       {this.id,

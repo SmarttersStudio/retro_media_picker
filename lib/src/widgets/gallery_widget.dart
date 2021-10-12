@@ -3,12 +3,10 @@ part of retro_media_picker;
 class GalleryWidget extends StatelessWidget {
   final List<MediaFile> mediaFiles;
   final bool allowMultiple;
-  final ScrollController controller;
+  final ScrollController? controller;
 
   GalleryWidget(
-      {@required this.mediaFiles,
-      this.controller,
-      @required this.allowMultiple});
+      {required this.mediaFiles, this.controller, required this.allowMultiple});
 
   @override
   Widget build(BuildContext context) {

@@ -8,8 +8,8 @@ class RetroMediaMethodHandler {
       const MethodChannel('retro_media_picker');
 
   static Future<List<Album>> getAlbums(
-      {@required bool withImages,
-      @required bool withVideos,
+      {required bool withImages,
+      required bool withVideos,
       bool loadIOSPaths = true}) async {
     final String json = await _channel.invokeMethod(
       "getAlbums",
@@ -36,8 +36,8 @@ class RetroMediaMethodHandler {
   ///                    fit: BoxFit.cover,
   ///                    )
   static Future<String> getThumbnail({
-    @required String fileId,
-    @required MediaType type,
+    required String fileId,
+    required MediaType type,
   }) async {
     final String path = await _channel.invokeMethod(
       'getThumbnail',
@@ -54,8 +54,8 @@ class RetroMediaMethodHandler {
   /// Android always returns the path & duration
   /// [loadThumbnail] Whether or not to generate a thumbnail
   static Future<MediaFile> getMediaFile({
-    @required String fileId,
-    @required MediaType type,
+    required String fileId,
+    required MediaType type,
     bool loadIOSPath = true,
     bool loadThumbnail = false,
   }) async {
