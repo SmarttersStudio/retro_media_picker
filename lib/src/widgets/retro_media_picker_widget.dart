@@ -12,13 +12,13 @@ class RetroMediaPickerWidget extends StatefulWidget {
   final bool allowMultiple;
   final OnFileChoose onFileChoose;
   final Function() onCancel;
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
 
   RetroMediaPickerWidget(
-      {@required this.withImages,
-      @required this.withVideos,
-      @required this.onFileChoose,
-      @required this.onCancel,
+      {required this.withImages,
+      required this.withVideos,
+      required this.onFileChoose,
+      required this.onCancel,
       this.scrollController,
       this.allowMultiple = false});
 
@@ -27,10 +27,10 @@ class RetroMediaPickerWidget extends StatefulWidget {
 }
 
 class PickerWidgetState extends State<RetroMediaPickerWidget> {
-  Album _selectedAlbum;
-  List<Album> _albums;
+  Album? _selectedAlbum;
+  late List<Album> _albums;
   MultiSelectorModel _selector = MultiSelectorModel();
-  Future albumFuture;
+  late Future albumFuture;
   bool _isLoading = true;
   @override
   void initState() {
@@ -77,7 +77,7 @@ class PickerWidgetState extends State<RetroMediaPickerWidget> {
                   Spacer(flex: 2),
                   DropdownButton<Album>(
                     value: _selectedAlbum,
-                    onChanged: (Album newValue) {
+                    onChanged: (Album? newValue) {
                       setState(() {
                         _selectedAlbum = newValue;
                       });
@@ -112,16 +112,18 @@ class PickerWidgetState extends State<RetroMediaPickerWidget> {
                   if (widget.withVideos)
                     GalleryWidget(
                         allowMultiple: widget.allowMultiple,
-                        mediaFiles: _selectedAlbum.files
-                            .where((e) => e.type == MediaType.VIDEO)
-                            .toList(),
+                        mediaFiles: _selectedAlbum?.files
+                                .where((e) => e.type == MediaType.VIDEO)
+                                .toList() ??
+                            [],
                         controller: widget.scrollController),
                   if (widget.withImages)
                     GalleryWidget(
                         allowMultiple: widget.allowMultiple,
-                        mediaFiles: _selectedAlbum.files
-                            .where((e) => e.type == MediaType.IMAGE)
-                            .toList(),
+                        mediaFiles: _selectedAlbum?.files
+                                .where((e) => e.type == MediaType.IMAGE)
+                                .toList() ??
+                            [],
                         controller: widget.scrollController),
                 ],
               )),
@@ -191,7 +193,7 @@ class PickerWidgetState extends State<RetroMediaPickerWidget> {
 class SelectedItemWidget extends StatelessWidget {
   SelectedItemWidget(this.file, {this.onRemove});
   final MediaFile file;
-  final VoidCallback onRemove;
+  final VoidCallback? onRemove;
 
   @override
   Widget build(BuildContext context) {

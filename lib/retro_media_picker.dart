@@ -22,38 +22,43 @@ part './src/widgets/gallery_widget_item.dart';
 part './src/widgets/retro_media_picker_widget.dart';
 
 class RetroMediaPicker {
-  static Future<MediaFile> pickImage(
-      {BuildContext context, RetroMediaPickerType pickerType}) async {
+  static Future<MediaFile?> pickImage(
+      {required BuildContext context,
+      required RetroMediaPickerType pickerType}) async {
     return _showSinglePicker(context, pickerType, true, false);
   }
 
-  static Future<Set<MediaFile>> pickImages(
-      {BuildContext context, RetroMediaPickerType pickerType}) {
+  static Future<Set<MediaFile?>?> pickImages(
+      {required BuildContext context,
+      required RetroMediaPickerType pickerType}) {
     return _showMultiPicker(context, pickerType, true, false);
   }
 
-  static Future<MediaFile> pickVideo(
-      {BuildContext context, RetroMediaPickerType pickerType}) {
+  static Future<MediaFile?> pickVideo(
+      {required BuildContext context,
+      required RetroMediaPickerType pickerType}) {
     return _showSinglePicker(context, pickerType, false, true);
   }
 
-  static Future<Set<MediaFile>> pickVideos(
-      {BuildContext context, RetroMediaPickerType pickerType}) {
+  static Future<Set<MediaFile?>?> pickVideos(
+      {required BuildContext context,
+      required RetroMediaPickerType pickerType}) {
     return _showMultiPicker(context, pickerType, false, true);
   }
 
-  static Future<Set<MediaFile>> pickImageWithVideos(
-      {BuildContext context, RetroMediaPickerType pickerType}) {
+  static Future<Set<MediaFile?>?> pickImageWithVideos(
+      {required BuildContext context,
+      required RetroMediaPickerType pickerType}) async {
     return _showMultiPicker(context, pickerType, true, true);
   }
 
-  static Future<MediaFile> _showSinglePicker(BuildContext context,
+  static Future<MediaFile?> _showSinglePicker(BuildContext context,
       RetroMediaPickerType pickerType, bool withImages, bool withVideos) async {
     final permissionResult =
         await RetroPermissionHandler.checkStoragePermission();
     if (permissionResult) {
       if (pickerType == RetroMediaPickerType.bottomSheet) {
-        return showModalBottomSheet(
+        return showModalBottomSheet<MediaFile>(
           context: context,
           isScrollControlled: true,
           builder: (BuildContext context) {
@@ -105,13 +110,13 @@ class RetroMediaPicker {
     }
   }
 
-  static Future<Set<MediaFile>> _showMultiPicker(BuildContext context,
+  static Future<Set<MediaFile?>?> _showMultiPicker(BuildContext context,
       RetroMediaPickerType pickerType, bool withImages, bool withVideos) async {
     final permissionResult =
         await RetroPermissionHandler.checkStoragePermission();
     if (permissionResult) {
       if (pickerType == RetroMediaPickerType.bottomSheet) {
-        return showModalBottomSheet(
+        return showModalBottomSheet<Set<MediaFile?>?>(
           context: context,
           isScrollControlled: true,
           builder: (BuildContext context) {

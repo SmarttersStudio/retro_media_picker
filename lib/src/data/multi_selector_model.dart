@@ -6,7 +6,9 @@ part of retro_media_picker;
 class MultiSelectorModel extends ChangeNotifier {
   Set<MediaFile> _selectedItems = Set();
 
-  void toggle(MediaFile file, bool isMultiple) {
+  void toggle(MediaFile? file, bool? isMultiple) {
+    if (file == null) return;
+    if (isMultiple == null) return;
     if (_selectedItems.contains(file)) {
       _selectedItems.remove(file);
     } else {
